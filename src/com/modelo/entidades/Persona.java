@@ -15,23 +15,21 @@ import javax.persistence.Id;
  *
  * @author Fernando Sangopanta
  */
-@Entity( name="persona")
+@Entity(name="persona")
 public class Persona implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     
     @Column(name="nombre")
     private String nombre;
     
     public Persona(){
     }
-    
-    public Persona(String nombre) {
-        this.nombre = nombre;
-    }
+
 
     public String getNombre() {
         return nombre;
@@ -43,33 +41,37 @@ public class Persona implements Serializable {
     
     
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 5;
+        hash = 13 * hash + this.id;
         return hash;
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Persona)) {
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
             return false;
         }
-        Persona other = (Persona) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
+        final Persona other = (Persona) obj;
         return true;
     }
+
+
 
     @Override
     public String toString() {
